@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>組み合わせ神社｜操作できる試作</title>
+  <link rel="stylesheet" href="working.css">
+  <script defer src="shrine-core.js"></script>
+  <script defer src="working.js"></script>
+</head>
+<body>
+  <header class="top"><span>水曜会ポータル　｜　組み合わせ神社</span><span class="badge">操作できる試作・未公開</span></header>
+  <main>
+    <h1>組み合わせ神社</h1>
+    <p class="lead">参加者を登録し、大会対戦またはペア・団体の組み合わせを作ります。</p>
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+    <div class="tabs" role="tablist" aria-label="作る組み合わせ">
+      <button type="button" class="tab" data-tab="match" aria-selected="true">大会対戦</button>
+      <button type="button" class="tab" data-tab="group" aria-selected="false">ペア・団体</button>
+    </div>
+    <div class="layout">
+      <div class="stack">
+        <section class="card">
+          <div class="cardhead"><h2>参加者</h2><span class="muted">この端末に保存</span></div>
+          <label for="bulk">名前を1行に1人</label>
+          <textarea id="bulk" rows="4" placeholder="名前を入力してください"></textarea>
+          <div class="actions"><button id="bulk-add" type="button">まとめて追加</button></div>
+          <details class="add-one"><summary>性別・段級・点数も入れて1人ずつ追加</summary>
+            <div class="fieldgrid">
+              <label>名前<input id="person-name" autocomplete="off"></label>
+              <label>性別<select id="person-gender"><option value="">未設定</option><option value="female">女</option><option value="male">男</option></select></label>
+              <label>棋力の種類<select id="strength-type"><option value="">未設定</option><option value="kyu">級</option><option value="dan">段</option><option value="point">点数</option></select></label>
+              <label>数値<select id="strength-value" disabled><option value="">先に棋力の種類を選んでください</option></select></label>
+            </div>
+            <div class="actions"><button id="add-one" type="button">参加者へ追加</button></div>
+          </details>
+          <div class="subhead"><h3>名簿 <span id="roster-count">0人</span></h3><button id="clear-roster" type="button" class="textbutton">名簿を空にする</button></div>
+          <div id="roster-list" class="list"><p class="empty">まだ参加者はいません。</p></div>
+        </section>
+
+        <section class="card" id="match-panel">
+          <h2>大会対戦</h2>
+          <div class="fieldgrid">
+            <label>出場者<select id="match-source"><option value="roster">名簿の参加者</option><option value="groups">作成した組番号</option></select></label>
+            <label>対戦方式<select id="match-method"><option value="tournament">トーナメント</option><option value="swiss">スイス方式</option></select></label>
+          </div>
+          <div class="actions"><button id="make-match" type="button" class="primary">対戦を作る</button></div>
+          <p class="note">対戦結果を選ぶと次の回戦を作れます。スイス方式は勝ち1点、引き分け0.5点、待機1点です。</p>
+        </section>
+
+        <section class="card" id="group-panel" hidden>
+          <h2>ペア・団体</h2>
+          <label class="short">1組の上限人数<select id="group-size"></select></label>
+          <details class="add-one"><summary>組み合わせの条件</summary>
+            <label class="check"><input id="mixed-gender" type="checkbox">男女を交互に並べる</label>
+            <label class="check"><input id="close-strength" type="checkbox">棋力が近い人を並べる</label>
+            <label class="check"><input id="balanced-strength" type="checkbox">各組の棋力を均等にする</label>
+            <label>決まっている組（1行に1組、名前を「、」で区切る）<textarea id="fixed-groups" rows="3"></textarea></label>
+          </details>
+          <div class="actions"><button id="make-groups" type="button" class="primary">組を作る</button></div>
+          <p class="note">1人組ができないように人数を振り分けます。作成後、組番号を大会対戦へ引き継げます。</p>
+        </section>
+
+        <section class="card">
+          <div class="cardhead"><h2>今回の結果</h2><span id="result-kind" class="muted"></span></div>
+          <div id="current-result" class="result"><p class="empty">まだ結果はありません。</p></div>
+          <div class="actions"><button id="copy-result" type="button" disabled>結果をコピー</button><button id="save-result" type="button" disabled>この結果を保存</button><button id="use-groups" type="button" hidden>組番号を大会対戦へ引き継ぐ</button></div>
+        </section>
+      </div>
+      <div class="stack">
+        <section class="card">
+          <div class="cardhead"><h2>結果</h2><span class="muted">最新5件まで</span></div>
+          <div id="saved-results" class="list"><p class="empty">まだ保存した結果はありません。</p></div>
+        </section>
+        <section class="card">
+          <h2>別の端末へ転送</h2>
+          <p class="note">名簿と保存した結果をまとめてコピーし、別の端末に貼り付けて取り込みます。名前が含まれます。</p>
+          <div class="actions"><button id="export-data" type="button">転送用にコピー</button><button id="import-data" type="button">貼り付けた内容を確認</button></div>
+          <label for="transfer-text">転送文<textarea id="transfer-text" rows="6" placeholder="ここに転送文を貼り付けます"></textarea></label>
+          <div id="import-preview" class="import-preview" hidden></div>
+          <div class="actions"><button id="confirm-import" type="button" class="primary" hidden>この内容を取り込む</button></div>
+        </section>
+      </div>
+    </div>
+    <p class="footnote">この試作は端末内だけに保存します。正式台帳・スタンプ・大会の公式記録には送信しません。</p>
+  </main>
+</body>
+</html>

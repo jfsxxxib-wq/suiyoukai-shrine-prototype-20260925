@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>組み合わせ神社｜サイト用画面見本</title>
+  <style>
+    :root { font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif; color: #213036; background: #f6f8f6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    button, textarea, select, input { font: inherit; }
+    button { cursor: pointer; }
+    .top { background: #fff; border-bottom: 1px solid #dfe7e2; padding: 12px max(20px, calc((100vw - 1060px) / 2)); display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+    .brand { font-size: 14px; font-weight: 800; color: #294b42; }
+    .preview { background: #fdf1ce; color: #604b20; border-radius: 999px; padding: 6px 12px; font-size: 12px; font-weight: 800; }
+    main { max-width: 1060px; margin: 0 auto; padding: 28px 20px 60px; }
+    h1 { margin: 0 0 8px; font-size: clamp(26px, 4vw, 36px); color: #1e493a; }
+    h2 { margin: 0; font-size: 20px; }
+    h3 { margin: 0 0 8px; font-size: 16px; }
+    p { line-height: 1.6; }
+    .lead { margin: 0 0 22px; color: #52635d; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 18px; }
+    .tab { border: 1px solid #cbd9d1; background: #fff; color: #285143; border-radius: 10px; padding: 12px 18px; font-weight: 800; }
+    .tab[aria-selected="true"] { background: #285b48; border-color: #285b48; color: #fff; }
+    .grid { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, .7fr); gap: 18px; }
+    .stack { display: grid; gap: 18px; }
+    .card { background: #fff; border: 1px solid #dce7df; border-radius: 14px; padding: 20px; box-shadow: 0 2px 9px #163d2808; }
+    .cardhead { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 15px; }
+    .muted { color: #60726b; font-size: 13px; }
+    label { display: grid; gap: 6px; font-weight: 700; font-size: 14px; }
+    textarea, select, input { width: 100%; border: 1px solid #b8cbc0; border-radius: 9px; padding: 11px; background: #fff; color: #213036; }
+    textarea { resize: vertical; min-height: 150px; line-height: 1.5; }
+    .row { display: flex; gap: 10px; align-items: end; flex-wrap: wrap; }
+    .row label { min-width: 180px; flex: 1; }
+    .quick { margin-top: 16px; padding-top: 16px; border-top: 1px solid #e4ece6; }
+    .quick .row { margin-top: 10px; }
+    .quick .row label { min-width: 145px; }
+    .primary { background: #2f694f; color: #fff; border: 0; border-radius: 9px; padding: 11px 18px; font-weight: 800; }
+    .quiet { color: #245642; background: #fff; border: 1px solid #aac9b8; border-radius: 9px; padding: 9px 12px; font-weight: 700; }
+    .actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .result { border: 1px dashed #b8cfc0; background: #f8fbf8; border-radius: 10px; padding: 16px; }
+    .result strong { color: #1e493a; }
+    .result p { margin: 6px 0 0; }
+    .saved { border-top: 1px solid #e4ece6; padding: 12px 0; }
+    .saved:first-of-type { border-top: 0; }
+    .saved strong { display: block; }
+    .saved small { color: #687a72; }
+    .note { font-size: 13px; color: #65746e; margin: 10px 0 0; }
+    .transfer { background: #f0f7f1; border: 1px solid #c8ddcf; border-radius: 10px; padding: 14px; margin-top: 14px; }
+    [hidden] { display: none !important; }
+    @media (max-width: 780px) { .grid { grid-template-columns: 1fr; } main { padding-top: 22px; } .top { padding: 12px 20px; } }
+  </style>
+</head>
+<body>
+  <header class="top"><span class="brand">水曜会ポータル　｜　組み合わせ神社</span><span class="preview">画面見本・未実装</span></header>
+  <main>
+    <h1>組み合わせ神社</h1>
+    <p class="lead">参加者を入れて、対戦またはペア・団体の組み合わせ案を作ります。</p>
+    <div class="tabs" role="tablist" aria-label="作る組み合わせ">
+      <button class="tab" type="button" role="tab" aria-selected="true" data-mode="match">大会対戦</button>
+      <button class="tab" type="button" role="tab" aria-selected="false" data-mode="group">ペア・団体</button>
+    </div>
+    <div class="grid">
+      <div class="stack">
+        <section class="card" aria-label="参加者を入力">
+          <div class="cardhead"><h2>参加者</h2><button class="quiet" type="button">保存した名簿を開く</button></div>
+          <label>名前または組番号を1行に1つ
+            <textarea placeholder="参加者A&#10;参加者B&#10;参加者C"></textarea>
+          </label>
+          <div class="quick" aria-label="参加者を1人ずつ追加する見本">
+            <h3>1人ずつ追加</h3>
+            <div class="row">
+              <label>名前<input type="text" placeholder="例：佐藤さん"></label>
+              <label>性別<select><option>未設定</option><option>女</option><option>男</option></select></label>
+            </div>
+            <div class="row">
+              <label>棋力の種類<select><option>未設定</option><option>級</option><option>段</option><option>点数</option></select></label>
+              <label>数値<input type="text" inputmode="text" placeholder="例：3、-10、100"></label>
+              <button class="quiet" type="button">参加者へ追加</button>
+            </div>
+            <p class="note">段・級・点数は今までと同じように入力できます。点数はマイナスにも対応します。</p>
+          </div>
+        </section>
+        <section class="card" data-section="match" aria-label="大会対戦の設定">
+          <div class="cardhead"><h2>大会対戦</h2><span class="muted">交流戦なし</span></div>
+          <div class="row"><label>対戦方式<select><option>トーナメント</option><option>スイス方式</option></select></label></div>
+          <div class="actions"><button class="primary" type="button">対戦を作る</button></div>
+        </section>
+        <section class="card" data-section="group" aria-label="ペア・団体の設定" hidden>
+          <div class="cardhead"><h2>ペア・団体</h2><span class="muted">2～16人で1組</span></div>
+          <div class="row"><label>1組の人数<select id="group-size"></select></label></div>
+          <p class="note">決まっている組や、男女・棋力の希望条件は「詳細設定」にまとめます。</p>
+          <div class="actions"><button class="quiet" type="button">詳細設定</button><button class="primary" type="button">組を作る</button></div>
+        </section>
+        <section class="card" aria-label="結果の見本">
+          <div class="cardhead"><h2>今回の結果</h2><span class="muted">表示見本</span></div>
+          <div class="result"><strong>ここに結果を表示します</strong><p>対戦相手、次の回戦、または組番号と控えを確認できます。</p></div>
+          <div class="actions"><button class="quiet" type="button">結果をコピー</button><button class="quiet" type="button">この結果を保存</button></div>
+        </section>
+      </div>
+      <div class="stack">
+        <section class="card" aria-label="保存した結果">
+          <div class="cardhead"><h2>結果</h2><span class="muted">最新5回まで</span></div>
+          <div class="saved"><strong>保存例：トーナメント</strong><small>9月24日　参加者8人</small></div>
+          <div class="saved"><strong>保存例：ペア・団体</strong><small>9月17日　4人組を2組</small></div>
+          <p class="note">新しく保存すると、古い結果から順に5件を超えないよう整理します。</p>
+        </section>
+        <section class="card" aria-label="別の端末への転送">
+          <h2>別の端末へ転送</h2>
+          <p>名簿と保存した結果をコピーして、別の端末に貼り付けます。</p>
+          <div class="transfer"><strong>転送前に内容を確認</strong><p class="note">名前や組み合わせが含まれます。取り込み前に一覧を確認します。</p></div>
+          <div class="actions"><button class="quiet" type="button">転送用にコピー</button><button class="quiet" type="button">貼り付けて取り込む</button></div>
+        </section>
+      </div>
+    </div>
+    <p class="note">この画面は配置と文言を確認するための見本です。組み合わせ計算、保存、コピー転送は接続していません。</p>
+  </main>
+  <script>
+    const size = document.getElementById('group-size');
+    for (let count = 2; count <= 16; count += 1) size.add(new Option(`${count}人`, String(count)));
+    document.querySelectorAll('[data-mode]').forEach(button => button.addEventListener('click', () => {
+      const mode = button.dataset.mode;
+      document.querySelectorAll('[data-mode]').forEach(tab => tab.setAttribute('aria-selected', String(tab === button)));
+      document.querySelectorAll('[data-section]').forEach(section => section.hidden = section.dataset.section !== mode);
+    }));
+  </script>
+</body>
+</html>
