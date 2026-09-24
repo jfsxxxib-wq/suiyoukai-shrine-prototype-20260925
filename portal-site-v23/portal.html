@@ -1,0 +1,522 @@
+<!doctype html>
+<html lang="ja">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>水曜会ポータル</title><link rel="stylesheet" href="public/portal.css?v=23-shrine"><style>
+  .welcome-panel{position:relative}.meeting-copy{min-width:0}.welcome-panel [data-meeting-summary]{color:#d8eee8;font-size:.9rem}.schedule-toggle{display:flex;align-items:center;gap:7px;margin-top:12px;padding:7px 0;border:0;border-bottom:1px solid rgba(255,255,255,.48);color:#fff;background:transparent;font-size:.86rem;font-weight:800;cursor:pointer}.schedule-toggle span{transition:transform .18s}.schedule-toggle[aria-expanded=true] span{transform:rotate(180deg)}.meeting-details{margin-top:-7px;padding-top:7px}.meeting-edit-control{display:flex;align-items:center;gap:9px;margin:0 4px 10px;padding:9px 12px;border:1px solid #c9d7d2;border-radius:14px;background:rgba(255,253,247,.78)}.meeting-edit-button{min-height:36px;padding:7px 12px;border:1px solid #8bb7ad;border-radius:999px;color:#176b5c;background:#fff;font-size:.84rem;font-weight:800;cursor:pointer}.meeting-edit-control small{color:#6f7f7a;font-size:.75rem}.upcoming-meetings{margin:0 0 16px;padding:14px 16px;border:1px solid #d8d2bf;border-radius:18px;background:rgba(255,253,247,.86)}.upcoming-meetings>p{margin:0 0 9px;color:#63756f;font-size:.78rem;font-weight:800}.upcoming-meeting-list{display:grid;gap:7px}.small-meeting-card{display:grid;grid-template-columns:46px 1fr;align-items:center;gap:11px;padding:9px 11px;border-radius:13px;background:#eef6f2}.small-date-tile{width:44px;height:44px;display:grid;grid-template-columns:1fr 1fr;place-items:center;border-radius:11px;color:#176b5c;background:#fff}.small-date-tile strong{font-family:Georgia,serif;font-size:1.23rem}.small-date-tile small{font-size:.68rem}.small-meeting-card strong,.small-meeting-card span{display:block}.small-meeting-card strong{font-size:.94rem}.small-meeting-card span{margin-top:2px;color:#6b7c76;font-size:.78rem}.meeting-editor-card{width:min(100%,560px);margin:0 auto;padding:22px;border:1px solid #d5cfbd;border-radius:24px;background:var(--paper);box-shadow:var(--shadow)}.meeting-editor-note{display:flex;gap:10px;margin:0 0 18px;padding:13px;border-radius:15px;color:#315c53;background:#eaf5f1;font-size:.88rem;line-height:1.6}.meeting-date-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.meeting-date-fields .login-field{margin-top:8px}.meeting-date-fields input,.meeting-editor-card>.login-field input{width:100%;border:1px solid #cfc8b7}.meeting-date-fields small{color:#8a7a51;font-weight:400}.meeting-mini-preview{margin:22px 0 10px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;border-radius:20px;color:#fff;background:linear-gradient(135deg,#145f52,#218477)}.meeting-mini-preview p,.meeting-mini-preview h2{margin:0}.meeting-mini-preview h2{margin:3px 0 5px;font-size:1.38rem}.meeting-mini-preview p{color:#d8eee8;font-size:.84rem}.meeting-mini-preview .eyebrow{color:#cce9e2}.meeting-preview-upcoming{margin-bottom:18px}.meeting-editor-actions{display:grid;grid-template-columns:1fr 1.7fr;gap:10px}.meeting-editor-actions .ui-button{width:100%;min-height:50px}.meeting-editor-footnote{margin:15px 0 0;text-align:center;color:#7b8783;font-size:.78rem}.meeting-admin-heading>span{font-size:1.45rem}@media(max-width:430px){.meeting-edit-control{align-items:flex-start;flex-direction:column;gap:5px}.meeting-date-fields{grid-template-columns:1fr}.meeting-editor-actions{grid-template-columns:1fr}.meeting-editor-actions .meeting-cancel{order:2}}
+  .event-entry-button{width:100%;color:var(--ink);text-align:left;cursor:pointer}.event-page{width:min(100%,620px);margin:0 auto}.event-page-heading{display:flex;align-items:center;gap:14px;margin-bottom:8px}.event-page-dog{width:76px;height:76px;display:grid;place-items:center;overflow:hidden;border-radius:22px;background:#edf8f4}.event-page-dog img{width:72px;height:74px;object-fit:contain;transform:scale(1.12);filter:drop-shadow(0 4px 5px rgba(42,54,48,.14))}.event-page-heading h1{margin:4px 0 0;font-family:"Yu Mincho",serif;font-size:clamp(1.75rem,6vw,2.35rem)}.event-page-intro{margin:0 0 20px;color:#61736d;line-height:1.75}.event-sample-note{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;padding:10px 13px;border-radius:14px;color:#5f704e;background:#f6f2d9;font-size:.8rem}.event-list{display:grid;gap:12px}.event-card{overflow:hidden;border:1px solid #b7d6ce;border-radius:20px;background:var(--paper);box-shadow:0 8px 24px rgba(30,55,47,.07)}.event-card:first-child{border-color:#66a99b;box-shadow:0 13px 30px rgba(23,107,92,.12)}.event-card summary{list-style:none;display:grid;grid-template-columns:58px 1fr auto;align-items:center;gap:13px;padding:16px;cursor:pointer}.event-card summary::-webkit-details-marker{display:none}.event-date-tile{width:56px;height:61px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:15px;color:#176b5c;background:#e8f4f0;line-height:1}.event-date-tile small{font-size:.69rem}.event-date-tile strong{margin:4px 0 2px;font-family:Georgia,serif;font-size:1.65rem}.event-date-tile span{font-size:.68rem}.event-card-title>small,.event-card-title>strong,.event-card-title>span{display:block}.event-card-title>small{color:#9a7520;font-size:.72rem;font-weight:800}.event-card-title>strong{margin:3px 0;font-family:"Yu Mincho",serif;font-size:1.08rem}.event-card-title>span{color:#657670;font-size:.79rem;line-height:1.5}.event-chevron{color:#47776d;font-size:1.25rem;transition:transform .18s}.event-card[open] .event-chevron{transform:rotate(180deg)}.event-card-details{padding:0 16px 17px 87px;border-top:1px solid #e5ebe8}.event-card-details p{margin:13px 0;color:#536861;line-height:1.75}.event-facts{display:grid;gap:7px}.event-facts div{display:grid;grid-template-columns:58px 1fr;gap:8px;font-size:.84rem}.event-facts dt{color:#8a752f;font-weight:800}.event-facts dd{margin:0;color:#425f57}.event-contact-note{margin-top:18px;padding:15px;border-radius:17px;color:#385f56;background:#eaf5f1;line-height:1.7}.event-page .signature-lockup{padding-top:28px}@media(max-width:430px){.event-card summary{grid-template-columns:52px 1fr auto;padding:13px}.event-date-tile{width:50px;height:57px}.event-card-details{padding:0 14px 15px}.event-page-dog{width:68px;height:68px}.event-page-dog img{width:64px;height:67px}}
+  .event-admin-control{display:flex;align-items:center;gap:9px;margin:0 0 14px;padding:10px 12px;border:1px solid #c9d7d2;border-radius:14px;background:rgba(255,253,247,.86)}.event-admin-control small{color:#6f7f7a;font-size:.75rem}.event-poster-display{margin:14px 0 4px;overflow:hidden;border:1px solid #d9d2bf;border-radius:15px;background:#f6f3e8}.event-poster-display img{display:block;width:100%;max-height:420px;object-fit:contain}.event-card-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:15px}.event-card-actions button{min-height:46px;padding:9px 10px;border-radius:13px;font-weight:800;cursor:pointer}.event-apply-button{border:0;color:#fff;background:var(--green)}.event-share-button{border:1px solid #8bb7ad;color:#176b5c;background:#fff}.share-feedback{margin:10px 0 0!important;padding:9px 11px;border-radius:11px;color:#27675a!important;background:#e8f4f0;font-size:.8rem}.event-editor-card,.event-application-card{width:min(100%,560px);margin:0 auto;padding:22px;border:1px solid #d5cfbd;border-radius:24px;background:var(--paper);box-shadow:var(--shadow)}.event-editor-card .login-field input,.event-editor-card .login-field textarea,.event-application-card .login-field input,.event-application-card .login-field textarea{width:100%;border:1px solid #cfc8b7;border-radius:13px;background:#fff}.event-editor-card .login-field textarea,.event-application-card .login-field textarea{min-height:120px;padding:12px 14px;resize:vertical;font:inherit;line-height:1.65}.event-editor-card .login-field small{display:block;margin-top:6px;color:#77847f;font-size:.76rem;font-weight:400}.event-editor-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.event-upload-field{display:block;margin-top:18px;padding:15px;border:1px dashed #91b8ae;border-radius:16px;color:#35554e;background:#f5faf8}.event-upload-field>span,.event-upload-field>small{display:block}.event-upload-field>span{font-weight:800}.event-upload-field>small{margin:5px 0 10px;color:#71807b;font-size:.78rem}.event-upload-field input{width:100%;font-size:.85rem}.event-poster-preview{margin-top:12px;overflow:hidden;border-radius:13px;background:#eef3ef}.event-poster-preview img{display:block;width:100%;max-height:300px;object-fit:contain}.event-form-submit{width:100%;min-height:52px;margin-top:20px}.application-event-name{margin:0 0 18px;padding:14px;border-radius:15px;color:#285d52;background:#e9f5f1;font-family:"Yu Mincho",serif;font-size:1.1rem;font-weight:800}.application-agreement{display:flex;align-items:flex-start;gap:10px;margin:18px 0;color:#536761;font-size:.85rem;line-height:1.55}.application-agreement input{width:20px;height:20px;flex:none;accent-color:var(--green)}.application-success{text-align:center}.application-success>span{width:72px;height:72px;display:grid;place-items:center;margin:0 auto 17px;border-radius:50%;color:#fff;background:var(--green);font-size:2rem}.application-success h2{font-family:"Yu Mincho",serif}.application-success p{color:#61736d;line-height:1.75}@media(max-width:430px){.event-admin-control{align-items:flex-start;flex-direction:column}.event-card-actions,.event-editor-grid{grid-template-columns:1fr}.event-card-details{padding-left:14px}}
+  .teacher-notice-entry{width:100%;color:var(--ink);text-align:left;cursor:pointer}.teacher-notice-page{width:min(100%,620px);margin:0 auto}.teacher-notice-heading{display:flex;align-items:center;gap:14px;margin-bottom:9px}.teacher-notice-heading>span{width:76px;height:76px;display:grid;place-items:center;overflow:hidden;border-radius:22px;background:#fff4cf}.teacher-notice-heading img{width:68px;height:72px;object-fit:contain;filter:drop-shadow(0 4px 5px rgba(42,54,48,.14))}.teacher-notice-heading h1{margin:4px 0 0;font-family:"Yu Mincho",serif;font-size:clamp(1.75rem,6vw,2.35rem)}.teacher-notice-lead{margin:0 0 18px;color:#6c735f;line-height:1.75}.teacher-notice-board{padding:21px;border:1px solid #d8c379;border-radius:22px;background:linear-gradient(145deg,#fff8d9,#fffdf7);box-shadow:0 12px 28px rgba(85,68,23,.1)}.teacher-notice-board-header{display:flex;align-items:center;justify-content:space-between;gap:10px;color:#8a6819}.teacher-notice-board-header strong{font-family:"Yu Mincho",serif;font-size:1.08rem}.teacher-notice-board-header span{padding:4px 9px;border-radius:999px;background:#f4df98;font-size:.72rem;font-weight:800}.teacher-notice-author{display:flex;align-items:center;gap:10px;margin:16px 0 11px;padding-bottom:11px;border-bottom:1px solid #eadba8}.teacher-notice-author strong,.teacher-notice-author small{display:block}.teacher-notice-author small{margin-top:2px;color:#837b62}.teacher-notice-lines{display:grid;gap:11px}.teacher-notice-lines p{margin:0;padding:2px 0 2px 14px;border-left:3px solid #e2c564;font-family:"Yu Mincho",serif;font-size:1.08rem;line-height:1.7}.teacher-notice-period{margin:16px 0 0;color:#857b60;font-size:.78rem}.teacher-notice-history{margin-top:16px}.teacher-notice-history h2{font-family:"Yu Mincho",serif;font-size:1.15rem}.teacher-notice-history details{margin-top:9px;overflow:hidden;border:1px solid #ddd5c0;border-radius:15px;background:rgba(255,253,247,.9)}.teacher-notice-history summary{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px;cursor:pointer}.teacher-notice-history summary strong,.teacher-notice-history summary small{display:block}.teacher-notice-history summary small{margin-top:2px;color:#7c857f}.teacher-notice-history details p{margin:0;padding:0 14px 14px;color:#526760;line-height:1.7}.teacher-notice-page .signature-lockup{padding-top:27px}
+  .teacher-admin-card{width:min(100%,580px);margin:0 auto;padding:22px;border:1px solid #d5cfbd;border-radius:24px;background:var(--paper);box-shadow:var(--shadow)}.teacher-admin-card .login-field input,.teacher-admin-card .login-field select,.teacher-admin-card .login-field textarea{width:100%;border:1px solid #cfc8b7;border-radius:13px;background:#fff}.teacher-admin-card .login-field select{min-height:48px;padding:0 13px;font:inherit}.teacher-admin-card .login-field textarea{min-height:92px;padding:12px 14px;resize:vertical;font:inherit;line-height:1.6}.two-line-help{display:block;margin-top:6px;color:#7d877f;font-size:.76rem;font-weight:400}.notice-preview{margin:20px 0 2px}.teacher-page-admin-control{margin:0 0 16px}.record-session-card{margin-top:16px;padding:16px;border:1px solid #d6d0be;border-radius:18px;background:#fbfaf4}.record-session-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.record-session-header strong{color:#315f70}.record-remove-button{padding:6px 9px;border:0;border-radius:999px;color:#8b574d;background:#f8eae6;font-size:.74rem;cursor:pointer}.record-session-grid{display:grid;grid-template-columns:1.35fr .85fr .75fr;gap:8px}.record-session-grid input{min-width:0;padding:10px!important}.record-session-note{grid-column:1/-1}.record-add-button{width:100%;min-height:48px;margin-top:13px;border:1px dashed #6aa99c;border-radius:15px;color:#176b5c;background:#f1f9f6;font-size:.9rem;font-weight:800;cursor:pointer}.record-entry-count{margin:9px 0 0;text-align:center;color:#697973;font-size:.78rem}.record-result{min-width:46px;padding:6px 8px;border-radius:999px;text-align:center;font-size:.78rem;font-weight:800}.record-result.win{color:#176b5c;background:#e4f3ee}.record-result.loss{color:#8b574d;background:#f8eae6}.record-result.pending{color:#6d7773;background:#edf0ef}.record-admin-summary{margin:18px 0 0;padding:13px;border-radius:14px;color:#315a52;background:#eaf4f0;font-size:.82rem;line-height:1.6}.teacher-record-heading h1{font-size:clamp(1.65rem,5.5vw,2.25rem)}@media(max-width:430px){.teacher-notice-heading>span{width:68px;height:68px}.teacher-notice-heading img{width:62px;height:66px}.teacher-notice-board{padding:17px}.record-session-grid{grid-template-columns:1fr 1fr}.record-session-grid label:first-child,.record-session-note{grid-column:1/-1}}
+  .handoff-actions{display:grid;gap:10px}.handoff-actions .primary-action{width:100%}.link-existing-button{width:100%;min-height:52px;border:1px solid #70a89d;border-radius:16px;color:#176b5c;background:#fff;font-size:.95rem;font-weight:800;cursor:pointer}.link-page{width:min(100%,580px);margin:0 auto}.link-heading{display:flex;align-items:center;gap:14px;margin-bottom:10px}.link-heading>span{width:72px;height:72px;display:grid;place-items:center;overflow:hidden;border-radius:21px;background:#fff0bd}.link-heading img{width:68px;height:68px;object-fit:cover}.link-heading h1{margin:4px 0 0;font-family:"Yu Mincho",serif;font-size:clamp(1.7rem,6vw,2.3rem);line-height:1.35}.link-lead{margin:0 0 16px;color:#5d716a;line-height:1.75}.link-device-note{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;padding:14px;border-radius:16px;color:#2f6257;background:#eaf5f1;line-height:1.65}.link-device-note strong{display:block}.link-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 0 16px}.link-step{padding:10px 5px;border:1px solid #d7d5ca;border-radius:13px;text-align:center;color:#77807d;background:rgba(255,253,247,.8);font-size:.73rem}.link-step span{width:25px;height:25px;display:grid;place-items:center;margin:0 auto 5px;border-radius:50%;background:#e5e8e6;font-weight:800}.link-step.active{color:#176b5c;border-color:#8abdb2;background:#f0f8f5}.link-step.active span,.link-step.done span{color:#fff;background:#176b5c}.link-card{padding:20px;border:1px solid #d6cfbd;border-radius:21px;background:var(--paper);box-shadow:0 10px 28px rgba(28,55,47,.08)}.link-card h2{margin:0 0 7px;font-family:"Yu Mincho",serif;font-size:1.25rem}.link-card>p{margin:0 0 15px;color:#64746f;line-height:1.7}.link-number-help{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:14px 0;padding:13px;border-radius:14px;background:#f6f2df}.link-number-help span,.link-number-help strong{display:block}.link-number-help span{color:#776b49;font-size:.78rem}.link-number-help strong{margin-top:3px;color:#173d59;font-family:Georgia,serif;font-size:1.3rem;letter-spacing:.1em}.link-number-open{flex:none;min-height:42px;padding:8px 11px;border:0;border-radius:12px;color:#fff;background:#176b5c;font-weight:800;cursor:pointer}.link-form .login-field{margin-top:13px}.link-form input{width:100%;border:1px solid #cfc8b7;font-family:Georgia,serif;font-size:1.2rem;letter-spacing:.12em}.link-form .ui-button{width:100%;min-height:52px;margin-top:16px}.link-form .ui-button:disabled{opacity:.45;cursor:not-allowed}.link-security{margin:14px 0 0!important;font-size:.78rem!important}.link-help-card{margin-top:14px;padding:16px;border:1px solid #d7d0bd;border-radius:18px;background:rgba(255,253,247,.78)}.link-help-card strong{display:block}.link-help-card p{margin:5px 0 12px;color:#6a7672;font-size:.84rem;line-height:1.65}.link-help-card button{padding:0;border:0;color:#176b5c;background:transparent;font-weight:800;cursor:pointer}.app-number-screen{text-align:center}.app-number-screen .link-card{padding:25px 20px}.app-number-mark{width:70px;height:70px;display:grid;place-items:center;margin:0 auto 13px;border-radius:50%;background:#eaf5f1;font-size:2rem}.app-number-box{margin:20px 0;padding:19px;border:2px solid #7fb4aa;border-radius:18px;background:#f4faf8}.app-number-box span,.app-number-box strong{display:block}.app-number-box span{color:#60726c;font-size:.8rem}.app-number-box strong{margin-top:8px;color:#173d59;font-family:Georgia,serif;font-size:2rem;letter-spacing:.13em}.app-number-screen .ui-button{width:100%;min-height:54px}.link-ticket-card{text-align:center}.link-ticket-symbol{width:84px;height:84px;display:grid;place-items:center;margin:2px auto 14px;border-radius:22px;color:#176b5c;background:#eaf5f1;font-size:2.5rem}.link-ticket-card .link-person{margin:15px 0;padding:13px;border-radius:14px;background:#f7f3e4}.link-person span,.link-person strong{display:block}.link-person span{color:#7c7560;font-size:.77rem}.link-person strong{margin-top:3px}.link-ticket-card .ui-button{width:100%;min-height:54px}.link-expiry{margin-top:13px!important;color:#8a6b2a!important;font-size:.78rem!important}.link-success{text-align:center}.link-success-mark{width:78px;height:78px;display:grid;place-items:center;margin:0 auto 15px;border-radius:50%;color:#fff;background:#176b5c;font-size:2rem}.link-success h1{font-family:"Yu Mincho",serif;font-size:1.75rem}.link-success p{color:#5f716b;line-height:1.75}.link-success-summary{margin:18px 0;padding:15px;border-radius:16px;text-align:left;background:#eef7f4}.link-success-summary div{display:flex;justify-content:space-between;gap:10px;padding:7px 0}.link-success-summary div+div{border-top:1px solid #d7e8e2}.link-success-summary span{color:#60716c;font-size:.82rem}.link-success .ui-button{width:100%;min-height:52px}.link-help-list{display:grid;gap:10px;margin:14px 0}.link-help-list div{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:13px;border-radius:14px;background:#f7f5eb}.link-help-list strong,.link-help-list span{display:block}.link-help-list span{margin-top:3px;color:#687772;font-size:.82rem;line-height:1.55}@media(max-width:430px){.link-heading>span{width:64px;height:64px}.link-heading img{width:60px;height:60px}.link-steps{gap:5px}.link-step{font-size:.68rem}.link-number-help{align-items:flex-start;flex-direction:column}.link-number-open{width:100%}}
+  .admin-only{display:none!important}.admin-profile-badge{margin-left:auto;padding:7px 10px;border:1px solid #b8d2ca;border-radius:14px;color:#174f45;background:#edf7f3;text-align:right;cursor:pointer;white-space:nowrap}.admin-profile-badge span,.admin-profile-badge strong{display:block}.admin-profile-badge span{font-size:.67rem;color:#648078}.admin-profile-badge strong{font-size:.82rem}.empty-state{padding:28px 18px;border:1px dashed #9fc4ba;border-radius:20px;color:#526b64;background:rgba(244,250,247,.9);text-align:center}.empty-state-mark{width:54px;height:54px;display:grid;place-items:center;margin:0 auto 12px;border-radius:18px;color:#176b5c;background:#e4f3ee;font-size:1.45rem}.empty-state h2{margin:0 0 7px;font-family:"Yu Mincho",serif;font-size:1.15rem}.empty-state p{margin:0;line-height:1.7}.danger-button{width:100%;min-height:46px;margin-top:12px;border:1px solid #d7a9a0;border-radius:13px;color:#8a4e45;background:#fff7f4;font-weight:800;cursor:pointer}.danger-button:disabled{opacity:.45;cursor:not-allowed}.admin-owner-card,.admin-invite-card{margin-top:14px;padding:17px;border:1px solid #d5cfbd;border-radius:18px;background:#fffdf7}.admin-owner-row{display:grid;grid-template-columns:48px 1fr auto;align-items:center;gap:12px}.admin-owner-avatar{width:46px;height:46px;display:grid;place-items:center;border-radius:50%;color:#fff;background:#176b5c;font-weight:800}.admin-owner-row strong,.admin-owner-row small{display:block}.admin-owner-row small{margin-top:3px;color:#6f7f79}.owner-label{padding:5px 8px;border-radius:999px;color:#785d18;background:#fff0bd;font-size:.72rem;font-weight:800}.admin-permission-list{display:grid;gap:8px;margin:15px 0}.admin-permission-list div{display:flex;gap:9px;align-items:flex-start;color:#4d665f;font-size:.85rem}.admin-invite-steps{margin:13px 0 0;padding-left:22px;color:#516860;line-height:1.8}.admin-guard-note{margin-top:14px;padding:13px;border-radius:14px;color:#705b24;background:#fff6d9;font-size:.82rem;line-height:1.65}.review-actions{display:grid;gap:10px;margin-top:16px}.review-actions .ui-button{width:100%}@media(max-width:430px){.admin-profile-badge{padding:6px 8px}.admin-profile-badge strong{font-size:.76rem}}
+  @media(max-width:430px){.event-page-heading{gap:10px}.event-page-heading>div{min-width:0}.event-page-heading h1{font-size:clamp(1.35rem,6vw,1.6rem);letter-spacing:-.03em;white-space:nowrap}}
+</style></head>
+<body>
+  <div class="site-shell view" id="home"><main class="portal-home">
+    <header class="portal-header"><div class="brand-mark"><span class="go-stone black"></span><span class="go-stone white"></span></div><div><p>湘南・藤沢</p><h1>水曜会ポータル</h1></div></header>
+    <section class="welcome-panel"><div class="meeting-copy"><p class="eyebrow">次回の定例会</p><h2 data-meeting-title>9月12日（土）</h2><p data-meeting-summary>13:00〜・囲碁サロン湘南</p><button class="schedule-toggle" type="button" data-schedule-toggle aria-expanded="false">日時と会場を確認 <span>⌄</span></button></div><span class="calendar-tile"><small data-meeting-weekday>土</small><strong data-meeting-day>12</strong></span></section>
+    <div class="meeting-details" data-meeting-details hidden>
+      <div class="meeting-edit-control admin-only"><button class="meeting-edit-button" type="button" data-go="meeting-admin">✎ 予定を変更</button><small>管理者にだけ表示</small></div>
+      <section class="upcoming-meetings" data-home-upcoming><p>次回の詳細</p><div class="upcoming-meeting-list" data-home-upcoming-list><article class="small-meeting-card"><span class="small-date-tile"><strong>12</strong><small>土</small></span><span><strong>9月12日（土）</strong><span>13:00〜・囲碁サロン湘南</span></span></article></div></section>
+    </div>
+    <section class="primary-card"><div class="primary-card-art"><img src="public/fairy-apollon-guide.png" alt="案内役の妖精"></div><div class="primary-card-copy"><span class="card-kicker">いつもの記録</span><h2>花記録を使う</h2><p>参加の記録、指導碁の花、冒険者カードはこちらです。</p><button class="ui-button" data-go="flower-handoff">花記録を開く <span>›</span></button></div></section>
+    <section class="portal-stack" aria-label="水曜会メニュー">
+      <button class="portal-card league-card" type="button" data-league-open><span class="card-icon character-icon codex-icon"><img src="public/menu-codex-original.png" alt=""></span><span><small data-league-kicker>リーグ参加者専用</small><strong>水曜会リーグ</strong><em data-league-message>花記録を確認して安全に開きます</em></span><span aria-hidden="true">›</span></button>
+      <button class="notice-strip event-notice event-entry-button" type="button" data-go="events"><span class="notice-character"><img src="public/menu-league.png" alt=""></span><span><strong>イベントのお知らせ</strong><p>9/23 交流戦・9/26 指導碁＆定例会</p></span><span>›</span></button>
+      <button class="notice-strip teacher-notice-entry" type="button" data-go="teacher-notices"><span class="notice-character"><img src="public/menu-teacher-notice.png" alt=""></span><span><strong>先生からのお知らせ</strong><p data-home-teacher-notice>現在、お知らせはありません。</p></span><span>›</span></button>
+      <a class="portal-card shrine-card" href="/public/shrine/index.html"><span class="card-icon shrine-icon" aria-hidden="true"><img src="public/menu-shrine-otter.png" alt=""></span><span><small>組み合わせを作る</small><strong>組み合わせ神社</strong><em>大会対戦・ペア・団体</em></span><span aria-hidden="true">›</span></a>
+    </section>
+    <footer class="portal-footer signature-lockup" aria-label="Be Water, Apollon Team, Codex"><span class="signature-motto">Be Water</span><img src="public/apollon-team-signature-indigo.png" alt="Apollon Team"><span class="signature-codex">Codex</span></footer>
+  </main></div>
+
+  <div class="site-shell view" id="portal-admin-access" hidden><main class="admin-access-page">
+    <header class="portal-header"><div class="brand-mark"><span class="go-stone black"></span><span class="go-stone white"></span></div><div><p>水曜会ポータル</p><h1>管理者画面</h1></div></header>
+    <section class="admin-access-card"><span class="admin-access-mark">🔒</span><p class="eyebrow">管理者専用</p><h2 data-admin-access-title>本人確認中です</h2><p data-admin-access-message>安全な管理画面を準備しています。</p><a class="ui-button admin-signin-link" href="/signin-with-chatgpt?return_to=%2Fadmin" target="_top" data-admin-signin hidden>ChatGPTで管理者確認</a><a class="ui-button outline admin-public-link" href="/">参加者画面へ戻る</a></section>
+  </main></div>
+
+  <div class="site-shell view" id="portal-admin-home" hidden><main class="admin-home-page">
+    <header class="portal-header"><div class="brand-mark"><span class="go-stone black"></span><span class="go-stone white"></span></div><div><p>悦子さん専用</p><h1>管理者画面</h1></div><span class="admin-safe-badge">本人確認済み</span></header>
+    <p class="admin-home-lead">変更する内容を選んでください。保存前に確認画面が開きます。</p>
+    <section class="admin-home-actions"><button class="portal-card" type="button" data-go="meeting-admin"><span class="admin-home-icon">📅</span><span><small>次回の定例会</small><strong>日程を変更する</strong><em>過ぎた日程は自動で次へ送ります</em></span><span>›</span></button><button class="portal-card" type="button" data-go="event-admin"><span class="admin-home-icon">📣</span><span><small>水曜会からのご案内</small><strong>イベントを追加・変更</strong><em>終了したお知らせも元へ戻せます</em></span><span>›</span></button><button class="portal-card repair-home-button" type="button" data-go="repair-admin"><span class="admin-home-icon">🧭</span><span><small>8桁番号の欠損・重複</small><strong>登録修復を管理する</strong><em>実績を消さず、正本と履歴を監査します</em></span><span>›</span></button></section>
+    <section class="admin-event-summary"><p class="eyebrow">登録済みイベント</p><div data-admin-event-list><p class="admin-muted">まだ保存されたイベントはありません。</p></div></section>
+    <a class="ui-button outline admin-public-link" href="/">参加者画面を見る</a>
+  </main></div>
+
+  <div class="site-shell view" id="repair-admin" hidden><main class="repair-admin-page">
+    <button class="ui-button ghost back-button" data-go="home">← 管理者画面へ戻る</button>
+    <div class="admin-heading repair-heading"><span>🧭</span><div><p class="eyebrow">管理者専用・変更履歴を保存</p><h1>登録修復</h1></div></div>
+    <p class="repair-safety-note"><strong>番号はここでは発行しません。</strong> 正式登録で発行済みの参加者番号を候補へ追加し、花番号・スタンプ・参加実績は削除せずに確認します。</p>
+    <section class="repair-layout">
+      <aside class="repair-panel repair-case-panel">
+        <div class="repair-section-heading"><div><p class="eyebrow">修復案件ID</p><h2>対象者一覧</h2></div><button class="ui-button outline repair-small-button" type="button" data-repair-new>＋ 新しい案件</button></div>
+        <div class="repair-case-list" data-repair-case-list><p class="admin-muted">読み込み中です。</p></div>
+      </aside>
+      <section class="repair-panel repair-workspace" data-repair-workspace>
+        <div class="repair-empty"><span>🧭</span><h2>案件を選んでください</h2><p>A〜E分類、正本、根拠資料、記録ID、使用停止履歴を一か所で確認します。</p></div>
+      </section>
+    </section>
+  </main></div>
+
+  <div class="site-shell view" id="meeting-admin" hidden><section class="admin-page">
+    <button class="ui-button ghost back-button" data-go="home">← 入口へ戻る</button>
+    <div class="admin-heading meeting-admin-heading"><span>✎</span><div><p class="eyebrow">管理者専用</p><h1>定例会の予定を変更</h1></div></div>
+    <form class="meeting-editor-card" data-meeting-form>
+      <p class="meeting-editor-note"><span>🔒</span><span>この画面は悦子さんなど、管理者として確認された方だけが開けます。</span></p>
+      <div class="meeting-date-fields" aria-label="定例会の日付">
+        <label class="login-field"><span>第1回</span><input type="date" value="2026-09-12" data-meeting-date required aria-label="第1回の開催日"></label>
+        <label class="login-field"><span>第2回 <small>任意</small></span><input type="date" value="2026-09-26" data-meeting-date aria-label="第2回の開催日"></label>
+        <label class="login-field"><span>第3回 <small>任意</small></span><input type="date" data-meeting-date aria-label="第3回の開催日"></label>
+        <label class="login-field"><span>第4回 <small>任意</small></span><input type="date" data-meeting-date aria-label="第4回の開催日"></label>
+        <label class="login-field"><span>第5回 <small>任意</small></span><input type="date" data-meeting-date aria-label="第5回の開催日"></label>
+      </div>
+      <label class="login-field"><span>時間</span><input type="text" value="13:00〜" data-meeting-time aria-label="時間"></label>
+      <label class="login-field"><span>会場・案内</span><input type="text" value="囲碁サロン湘南" data-meeting-place aria-label="会場・案内"></label>
+      <section class="meeting-mini-preview" aria-label="変更後の表示"><div><p class="eyebrow">次回の定例会</p><h2 data-meeting-preview-title>9月12日（土）</h2><p data-meeting-preview-summary>13:00〜・囲碁サロン湘南</p></div><span class="calendar-tile"><small data-meeting-preview-weekday>土</small><strong data-meeting-preview-day>12</strong></span></section>
+      <section class="upcoming-meetings meeting-preview-upcoming"><p>このあとの定例会</p><div class="upcoming-meeting-list" data-meeting-preview-upcoming></div></section>
+      <div class="meeting-editor-actions"><button class="ui-button outline meeting-cancel" type="button" data-go="home">やめる</button><button class="ui-button" type="submit">✓ 変更を保存する</button></div>
+      <p class="meeting-editor-footnote">保存すると、入口の定例会予定へ反映されます</p>
+    </form>
+  </section></div>
+
+  <div class="site-shell view" id="events" hidden><section class="event-page">
+    <button class="ui-button ghost back-button" data-go="home">← 入口へ戻る</button>
+    <header class="event-page-heading"><span class="event-page-dog"><img src="public/menu-league.png" alt=""></span><div><p class="eyebrow">水曜会からのご案内</p><h1>イベントのお知らせ</h1></div></header>
+    <p class="event-page-intro">開催日、時間、会場をご確認ください。催しを押すと、詳しい内容が開きます。</p>
+    <div class="event-sample-note"><span>📅 2026年9月の開催予定</span><span>開催日順</span></div>
+    <div class="event-admin-control admin-only"><button class="meeting-edit-button" type="button" data-go="event-admin">✎ お知らせを追加・変更</button><small>管理者にだけ表示</small></div>
+    <section class="event-list" aria-label="これからのイベント">
+      <div class="empty-state" data-event-empty hidden><span class="empty-state-mark">📅</span><h2>現在、イベントのお知らせはありません</h2><p>新しい予定が決まりましたら、こちらに表示します。</p></div>
+      <div data-persisted-events></div>
+      <details class="event-card" data-confirmed-event="2026-09-23" data-static-event><summary><span class="event-date-tile"><small>9月</small><strong>23</strong><span>水</span></span><span class="event-card-title"><small>2026年9月</small><strong>交流戦</strong><span>12:30　三鷹洪道場</span></span><span class="event-chevron">⌄</span></summary><div class="event-card-details"><p><strong>日時</strong><br><time datetime="2026-09-23T12:30:00+09:00">9月23日（水）12:30 開始</time></p><p><strong>会場</strong><br>三鷹洪道場</p></div></details>
+      <details class="event-card" data-confirmed-event="2026-09-26" data-static-event><summary><span class="event-date-tile"><small>9月</small><strong>26</strong><span>土</span></span><span class="event-card-title"><small>2026年9月</small><strong>指導碁＆定例会</strong><span>13:00　囲碁サロン湘南</span><span>常石隆志六段</span></span><span class="event-chevron">⌄</span></summary><div class="event-card-details"><p><strong>日時</strong><br><time datetime="2026-09-26T13:00:00+09:00">9月26日（土）13:00 開始</time></p><p><strong>会場</strong><br>囲碁サロン湘南</p><p><strong>指導棋士</strong><br>常石隆志六段</p></div></details>
+      <details class="event-card" data-main-event-card hidden><summary><span class="event-date-tile"><small data-main-event-month></small><strong data-main-event-day></strong><span data-main-event-weekday></span></span><span class="event-card-title"><small>次のイベント</small><strong data-main-event-title></strong><span data-main-event-meta></span></span><span class="event-chevron">⌄</span></summary><div class="event-card-details"><div class="event-poster-display" data-event-poster-display hidden><img data-event-poster-image alt="イベントのポスター"></div><p data-main-event-description></p><div class="event-card-actions"><button class="event-share-button" type="button" data-event-share>↗ 転送する</button><button class="event-apply-button" type="button" data-go="event-application" data-event-apply="">申し込む</button></div><p class="share-feedback" data-share-feedback hidden>LINE・メールなど、スマートフォンの共有先を選べます。</p></div></details>
+    </section>
+    <p class="event-contact-note">予定が変更になった場合も、このページでお知らせします。</p>
+    <footer class="portal-footer signature-lockup" aria-label="Be Water, Apollon Team, Codex"><span class="signature-motto">Be Water</span><img src="public/apollon-team-signature-indigo.png" alt="Apollon Team"><span class="signature-codex">Codex</span></footer>
+  </section></div>
+
+  <div class="site-shell view" id="event-admin" hidden><section class="admin-page">
+    <button class="ui-button ghost back-button" data-go="events">← イベント一覧へ戻る</button>
+    <div class="admin-heading"><span>✎</span><div><p class="eyebrow">管理者専用</p><h1>イベントを追加・変更</h1></div></div>
+    <form class="event-editor-card" data-event-editor-form>
+      <p class="meeting-editor-note"><span>🔒</span><span>悦子さんなど、管理者として確認された方だけが編集できます。</span></p>
+      <label class="login-field"><span>イベント名</span><input type="text" data-event-title-input required></label>
+      <div class="event-editor-grid"><label class="login-field"><span>開催日</span><input type="date" data-event-date-input required></label><label class="login-field"><span>時間</span><input type="text" data-event-time-input required></label></div>
+      <label class="login-field"><span>会場</span><input type="text" data-event-place-input required></label>
+      <label class="login-field"><span>お知らせ本文</span><textarea data-event-description-input></textarea><small>Word、メールなどで作った文章を、この欄へコピーして貼り付けられます。</small></label>
+      <label class="event-upload-field"><span>ポスター画像を添付</span><small>JPG・PNGなどの画像を選びます。</small><input type="file" accept="image/*" data-event-poster-input><span class="event-poster-preview" data-event-poster-preview hidden><img data-event-poster-preview-image alt="選んだポスターの確認"></span></label>
+      <button class="ui-button event-form-submit" type="submit">✓ お知らせを保存する</button>
+      <button class="danger-button" type="button" data-clear-events disabled>このイベントを終了する</button>
+    </form>
+  </section></div>
+
+  <div class="site-shell view" id="event-application" hidden><section class="admin-page">
+    <button class="ui-button ghost back-button" data-go="events">← イベントへ戻る</button>
+    <div class="admin-heading"><span>📝</span><div><p class="eyebrow">参加申込み</p><h1>申込みフォーム</h1></div></div>
+    <form class="event-application-card" data-event-application-form>
+      <p class="application-event-name" data-application-event-name>水曜会交流会</p>
+      <label class="login-field"><span>お名前</span><input type="text" placeholder="例：山田 花子" required></label>
+      <label class="login-field"><span>会員番号・受付番号 <small>分かる方だけ</small></span><input type="text" inputmode="numeric" placeholder="例：12345678"></label>
+      <label class="login-field"><span>管理者への連絡 <small>任意</small></span><textarea placeholder="質問や連絡があればご記入ください"></textarea></label>
+      <label class="application-agreement"><input type="checkbox" required><span>入力した内容を、このイベントの参加確認に使用することに同意します。</span></label>
+      <button class="ui-button event-form-submit" type="submit">この内容で申し込む</button>
+      <p class="meeting-editor-footnote">送信後、管理者の申込み一覧に届きます</p>
+    </form>
+    <section class="event-application-card application-success" data-application-success hidden><span>✓</span><h2>申込みを受け付けました</h2><p><strong data-success-event-name>水曜会交流会</strong><br>管理者が確認できる申込み一覧へ届きます。</p><button class="ui-button" type="button" data-go="events">イベント一覧へ戻る</button></section>
+  </section></div>
+
+  <div class="site-shell view" id="teacher-notices" hidden><section class="teacher-notice-page">
+    <button class="ui-button ghost back-button" data-go="home">← 入口へ戻る</button>
+    <header class="teacher-notice-heading"><span><img src="public/menu-teacher-notice.png" alt=""></span><div><p class="eyebrow">水曜会の皆さんへ</p><h1>先生からのお知らせ</h1></div></header>
+    <p class="teacher-notice-lead">先生から届いた言葉を、悦子さんが確認して掲載します。</p>
+    <div class="event-admin-control admin-only"><button class="meeting-edit-button" type="button" data-go="teacher-notice-admin">✎ お知らせを追加・変更</button><small>管理者にだけ表示</small></div>
+    <div class="empty-state" data-teacher-notice-empty><span class="empty-state-mark">📣</span><h2>現在、先生からのお知らせはありません</h2><p>先生から届いた言葉を悦子さんが確認すると、こちらに表示されます。</p></div>
+    <article class="teacher-notice-board" data-teacher-notice-board hidden>
+      <div class="teacher-notice-board-header"><strong>いちばん新しいお知らせ</strong><span>掲載中</span></div>
+      <div class="teacher-notice-author"><span>📣</span><span><strong data-notice-teacher></strong><small data-notice-date></small></span></div>
+      <div class="teacher-notice-lines"><p data-notice-line-one></p><p data-notice-line-two></p></div>
+      <p class="teacher-notice-period" data-notice-period></p>
+    </article>
+    <footer class="portal-footer signature-lockup" aria-label="Be Water, Apollon Team, Codex"><span class="signature-motto">Be Water</span><img src="public/apollon-team-signature-indigo.png" alt="Apollon Team"><span class="signature-codex">Codex</span></footer>
+  </section></div>
+
+  <div class="site-shell view" id="teacher-notice-admin" hidden><section class="admin-page">
+    <button class="ui-button ghost back-button" data-go="teacher-notices">← お知らせへ戻る</button>
+    <div class="admin-heading"><span>📣</span><div><p class="eyebrow">管理者専用</p><h1>先生のお知らせを掲載</h1></div></div>
+    <form class="teacher-admin-card" data-teacher-notice-form>
+      <p class="meeting-editor-note"><span>🔒</span><span>先生から受け取った言葉を、悦子さんが確認してから掲載します。</span></p>
+      <label class="login-field"><span>先生のお名前</span><select data-notice-teacher-input required><option value="">花図鑑アプリに登録済みの先生を選ぶ</option></select><small class="two-line-help">仮の先生は作らず、花図鑑アプリに登録された先生だけを表示します。</small></label>
+      <label class="login-field"><span>1行目</span><textarea data-notice-line-one-input required></textarea></label>
+      <label class="login-field"><span>2行目</span><textarea data-notice-line-two-input required></textarea><small class="two-line-help">入口には短い案内を表示し、全文はお知らせページで読めます。</small></label>
+      <div class="event-editor-grid"><label class="login-field"><span>掲載開始日</span><input type="date" data-notice-start required></label><label class="login-field"><span>掲載終了日</span><input type="date" data-notice-end required></label></div>
+      <article class="teacher-comment notice-preview"><div><span>📣</span><span>掲載イメージ</span></div><p data-notice-preview-one>1行目の内容がここに表示されます。</p><p data-notice-preview-two>2行目の内容がここに表示されます。</p><small>悦子さんの確認後、掲載期間中だけ表示</small></article>
+      <button class="ui-button event-form-submit" type="submit">✓ 確認して掲載する</button>
+      <p class="meeting-editor-footnote">掲載前に内容と期間をもう一度確認します</p>
+    </form>
+  </section></div>
+
+  <div class="site-shell view" id="flower-handoff" hidden><section class="handoff-panel">
+    <button class="ui-button ghost back-button" data-go="home">← 入口へ戻る</button>
+    <div class="handoff-illustration" aria-hidden="true"><span class="handoff-site">⌂</span><span class="handoff-line">→</span><span class="handoff-flower">✿</span></div>
+    <p class="eyebrow">水曜会の受付</p><h1>お名前を登録して、花図鑑へ</h1><p class="lead">初めての方は、ここでお名前を登録します。花図鑑で同じ内容を入力する必要はありません。</p>
+    <form class="gate-form" data-gate-form>
+      <div class="gate-names"><label>姓<input name="familyName" autocomplete="family-name" placeholder="例：水曜" maxlength="30" required></label><label>名<input name="givenName" autocomplete="given-name" placeholder="例：はなこ" maxlength="30" required></label></div>
+      <p class="gate-error" data-gate-error role="alert" hidden></p>
+      <button class="ui-button primary-action" type="submit">登録して花図鑑へ ›</button>
+    </form>
+    <div class="gate-returning" data-gate-returning hidden><p><strong data-gate-name></strong>さん<br>このスマートフォンでは登録済みです。</p><button class="ui-button primary-action" type="button" data-gate-open>花図鑑を開く ›</button><button type="button" class="gate-text-button" data-gate-edit>名前を訂正する</button></div>
+    <p class="gate-footnote">参加スタンプは、会場で参加QRを読んだときに付きます。</p>
+    <div class="safety-note"><span>📱</span><div><strong>次回も同じスマートフォン・ブラウザで</strong><span>iPhoneはSafari、AndroidはChromeをお使いください。</span></div></div>
+    <p class="gate-preview-note" role="status" data-gate-status>登録を確認しています…</p><button type="button" class="gate-text-button" data-gate-retry hidden>再確認する</button>
+  </section></div>
+
+  <div class="site-shell view" id="gate-complete" hidden><section class="handoff-panel">
+    <p class="eyebrow">お名前の登録完了</p><h1><span data-gate-complete-name></span>さん、<br>ようこそ水曜会へ</h1>
+    <p class="lead">花図鑑を開けます。別の登録フォームへの入力は不要です。</p>
+    <button class="ui-button primary-action" type="button" data-gate-open>花図鑑を開く ›</button>
+    <p class="gate-footnote">参加スタンプは会場の参加QRから。お名前はもう一度入力しなくて大丈夫です。</p>
+    <button class="gate-text-button" type="button" data-go="home">水曜会ポータルへ戻る</button>
+    <p class="gate-preview-note" role="status" data-gate-complete-status>正式受付台帳に保存しました。</p>
+  </section></div>
+
+  <div class="site-shell view" id="league-login" hidden><section class="login-page">
+    <button class="ui-button ghost back-button" data-go="home">← 入口へ戻る</button>
+    <div class="login-heading"><span>🏆</span><div><p class="eyebrow">水曜会リーグ</p><h1>会員確認</h1></div></div>
+    <div class="login-card">
+      <div class="qr-message"><span>▦</span><div><strong>本人確認機能を準備しています</strong><span>イベント・定例会の公開確認後に、安全な本人確認と参加承認を接続します。</span></div></div>
+      <label class="login-field"><span>会員番号</span><input placeholder="会員番号を入力" aria-label="会員番号"></label>
+      <label class="login-field"><span>4桁の暗証番号</span><input type="password" inputmode="numeric" maxlength="4" placeholder="4桁" aria-label="4桁の暗証番号"></label>
+      <label class="remember-row"><input type="checkbox" checked><span><strong>このスマートフォンでは次回から入力を省く</strong><small>共用の端末ではチェックを外してください</small></span></label>
+      <button class="ui-button login-action" type="button" disabled>本人確認の実装後に利用できます</button>
+      <button class="help-link" type="button">会員番号や暗証番号が分からない方</button>
+    </div>
+    <div class="demo-scenarios admin-only"><span>表示を確認</span><button class="ui-button outline" data-go="league-denied">権限がない場合</button><button class="ui-button outline" data-go="league-admin">管理者画面</button></div>
+    <p class="mock-note">ChatGPTアカウントは必要ありません</p>
+  </section></div>
+
+  <div class="site-shell view" id="league-denied" hidden><section class="access-page">
+    <button class="ui-button ghost back-button" data-go="league-login">← 会員確認へ戻る</button>
+    <div class="access-card"><span class="access-icon">🔒</span><p class="eyebrow">会員番号 S-0456</p><h1>リーグ参加の確認が必要です</h1><p>水曜会の会員確認はできましたが、現在はリーグ参加者として登録されていません。</p><div class="access-guidance"><span>👥</span><span><strong>途中から参加する方へ</strong>悦子さんが管理画面で登録すると、同じ会員番号のままリーグページを見られるようになります。</span></div><button class="ui-button" data-go="home">ポータル入口へ戻る</button></div>
+    <div class="demo-scenarios admin-only"><span>表示を確認</span><button class="ui-button outline" data-go="league-admin">管理者画面を見る</button></div>
+  </section></div>
+
+  <div class="site-shell view" id="league-admin" hidden><section class="admin-page">
+    <button class="ui-button ghost back-button" data-go="league-login">← 会員確認へ戻る</button>
+    <div class="admin-heading"><span>✓</span><div><p class="eyebrow">管理者専用</p><h1>リーグ参加者の管理</h1></div></div>
+    <div class="admin-card">
+      <label class="login-field"><span>会員を探す</span><input value="高橋さん" aria-label="会員を探す"></label>
+      <div class="member-card"><div class="member-avatar">高</div><div><strong>高橋さん</strong><span>会員番号　S-0456</span><small>水曜会会員</small></div><span>✅</span></div>
+      <div class="permission-row"><div><strong>第2期リーグ参加者</strong><span>オンにするとリーグページが見られます</span></div><button class="mock-switch" type="button" aria-label="第2期リーグ参加者" aria-pressed="false"><span></span></button></div>
+      <label class="login-field"><span>参加開始日</span><input type="date" value="2026-09-12" aria-label="参加開始日"></label>
+      <button class="ui-button login-action admin-save" data-go="league" disabled>✓ 参加登録を保存する</button>
+      <p class="ready-message" hidden>✅ 保存すると、同じ会員番号ですぐにリーグページへ入れます。</p>
+    </div>
+    <p class="mock-note">保存後、同じ会員番号へリーグ参加権限が追加されます</p>
+  </section></div>
+
+  <div class="site-shell view" id="league" hidden><section class="detail-page">
+    <button class="ui-button ghost back-button" data-go="home">← 入口へ戻る</button>
+    <div class="detail-heading league-heading"><span>🏆</span><div><p class="eyebrow">水曜会リーグ</p><h1>第2期 リーグ戦表</h1></div></div>
+    <div class="league-actions"><button data-go="league-result"><span>📝</span><span><strong>対局結果を送る</strong><small>参加者本人はこちら</small></span><span>›</span></button><button class="admin-only" data-go="league-review"><span>✅</span><span><strong>結果を確認する</strong><small>悦子さん・管理者専用</small></span><span>🔒</span></button></div>
+    <div class="table-card"><div class="table-title"><h2>現在の成績</h2></div><table style="width:100%;border-collapse:collapse"><thead><tr><th>順位</th><th>お名前</th><th>対局数</th><th>成績</th></tr></thead><tbody><tr><td colspan="4" style="padding:30px 12px;text-align:center;color:#687a74">まだ成績は登録されていません</td></tr></tbody></table></div>
+    <section class="participant-section"><div class="participant-heading"><div><p class="eyebrow">リーグ参加者</p><h2>参加者ごとの成績</h2></div></div><div class="empty-state"><span class="empty-state-mark">👥</span><h2>リーグ参加者はまだ登録されていません</h2><p>管理者が参加者を登録すると、こちらに名前が表示されます。</p></div></section>
+  </section></div>
+
+  <div class="site-shell view" id="league-result" hidden><section class="admin-page">
+    <button class="ui-button ghost back-button" data-go="league">← リーグ戦表へ戻る</button>
+    <div class="admin-heading league-result-heading"><span>📝</span><div><p class="eyebrow">水曜会リーグ</p><h1>対局結果を入力</h1></div></div>
+    <form class="admin-card league-result-card">
+      <p class="meeting-editor-note admin-only"><span>✓</span><span><strong>悦子さんは代理入力できます</strong><br>入力を忘れた方や、スマートフォンを使わない方の結果もここから記録します。</span></p>
+      <fieldset class="result-entry-mode"><legend>入力する方</legend><label><input type="radio" name="result-entry-mode" checked><span><strong>参加者本人</strong><small>自分の対局結果を送る</small></span></label><label class="admin-entry-choice admin-only"><input type="radio" name="result-entry-mode"><span><strong>管理者が代理入力</strong><small>悦子さん・管理者だけに表示</small></span></label></fieldset>
+      <label class="login-field"><span>結果を入力する参加者</span><select required><option value="">リーグ参加者を選ぶ</option></select></label>
+      <label class="login-field"><span>対局相手</span><select required><option value="">対局相手を選ぶ</option></select></label>
+      <div class="event-editor-grid"><label class="login-field"><span>対局日</span><input type="date" required></label><label class="login-field"><span>勝敗</span><select required><option value="">選択</option><option>勝ち</option><option>負け</option></select></label></div>
+      <label class="login-field"><span>補足（任意）</span><textarea rows="3" placeholder="手合いや確認事項があれば入力"></textarea></label>
+      <button class="ui-button event-form-submit" type="button">入力内容を確認する</button>
+      <p class="admin-guard-note">送信後は管理者の「結果を確認する」に入り、確認してから成績へ反映します。</p>
+    </form>
+  </section></div>
+
+  <div class="site-shell view" id="league-review" hidden><section class="admin-page">
+    <button class="ui-button ghost back-button" data-go="league">← リーグ戦表へ戻る</button>
+    <div class="admin-heading"><span>✅</span><div><p class="eyebrow">悦子さん・管理者専用</p><h1>確認待ちの対局結果</h1></div></div>
+    <div class="admin-card"><p class="meeting-editor-note"><span>🔒</span><span>管理者として確認済みの悦子さんが開いています。</span></p><div class="empty-state"><span class="empty-state-mark">✓</span><h2>確認待ちの結果はありません</h2><p>参加者から結果が届くと、対局者・勝敗・送信時刻をここで確認できます。</p></div><p class="admin-guard-note">結果を承認したあとにだけ、リーグ戦表と個人成績へ反映します。</p></div>
+  </section></div>
+
+  <div class="site-shell view" id="admin-settings" hidden><section class="admin-page">
+    <button class="ui-button ghost back-button" data-go="home">← 入口へ戻る</button>
+    <div class="admin-heading"><span>🔐</span><div><p class="eyebrow">管理責任者</p><h1>管理者の設定</h1></div></div>
+    <div class="admin-card">
+      <p class="meeting-editor-note"><span>✓</span><span><strong>悦子さんとしてログイン中</strong><br>水曜会ポータルの管理責任者です。</span></p>
+      <section class="admin-owner-card"><div class="admin-owner-row"><span class="admin-owner-avatar">悦</span><span><strong>悦子さん</strong><small>すべての管理機能を利用できます</small></span><span class="owner-label">管理責任者</span></div><div class="admin-permission-list"><div><span>✓</span><span>定例会・イベントのお知らせ</span></div><div><span>✓</span><span>リーグ参加者・対局結果</span></div><div><span>✓</span><span>先生のお知らせ・ご縁帳</span></div><div><span>✓</span><span>管理者の追加と権限変更</span></div></div></section>
+      <section class="admin-invite-card"><p class="eyebrow">管理者を増やす</p><h2>登録済みの会員へ権限を渡す</h2><label class="login-field"><span>追加する方</span><select data-admin-candidate><option value="">会員を選んでください</option><option>水曜会メンバー</option></select></label><button class="ui-button event-form-submit" type="button" data-admin-invite>一度だけ使える管理者登録QRを作る</button><div class="ready-message" data-admin-invite-ready hidden>✅ 15分間だけ使えるQRを用意しました。ご本人に直接読み取ってもらいます。</div><ol class="admin-invite-steps"><li>悦子さんが登録済みの会員を選ぶ</li><li>15分間・一度だけ使えるQRを発行する</li><li>ご本人がQRを読み、暗証番号を入力する</li><li>悦子さんが最終確認すると権限が有効になる</li></ol><p class="admin-guard-note">管理責任者の引き継ぎは別の確認操作にし、必ず一人は管理責任者が残るようにします。</p></section>
+    </div>
+  </section></div>
+
+  <div class="site-shell view" id="teacher-login" hidden><section class="login-page teacher-login-page">
+    <button class="ui-button ghost back-button" data-go="home">← 入口へ戻る</button>
+    <div class="login-heading teacher-login-heading"><span>📖</span><div><p class="eyebrow">先生専用</p><h1>ご本人の確認</h1></div></div>
+    <div class="login-card">
+      <div class="qr-message teacher-qr-message"><span>▦</span><div><strong>本人確認機能を準備しています</strong><span>接続後は、ご本人の先生番号と4桁の暗証番号で開きます。</span></div></div>
+      <label class="login-field"><span>先生番号</span><input placeholder="先生番号を入力" aria-label="先生番号"></label>
+      <label class="login-field"><span>4桁の暗証番号</span><input type="password" inputmode="numeric" maxlength="4" placeholder="4桁" aria-label="4桁の暗証番号"></label>
+      <label class="remember-row"><input type="checkbox" checked><span><strong>このスマートフォンでは次回から入力を省く</strong><small>共用の端末ではチェックを外してください</small></span></label>
+      <button class="ui-button login-action teacher-login-action" type="button" disabled>本人確認の接続後に利用できます</button>
+    </div>
+    <p class="mock-note">ほかの先生のご縁帳は表示されません</p>
+  </section></div>
+
+  <div class="site-shell view" id="teacher" hidden><section class="detail-page">
+    <button class="ui-button ghost back-button" data-go="home">← 入口へ戻る</button>
+    <div class="detail-heading teacher-heading"><span>📖</span><div><p class="eyebrow">先生専用<span data-journal-owner></span></p><h1>一局のご縁帳</h1></div></div>
+    <div class="empty-state" data-journal-notice-empty><span class="empty-state-mark">📣</span><h2>先生からのお知らせはまだありません</h2><p>先生が実際に記入し、悦子さんが確認した内容だけを表示します。</p></div>
+    <div class="teacher-comment" data-journal-notice hidden><div><span>📣</span><span>先生からのお知らせ</span></div><p data-journal-notice-one></p><p data-journal-notice-two></p><small>悦子さんの確認後、掲載期間中だけ表示</small></div>
+    <div class="event-admin-control teacher-page-admin-control admin-only"><button class="meeting-edit-button" type="button" data-go="teacher-record-admin">✎ 指導碁の記録を追加・変更</button><small>管理者にだけ表示</small></div>
+    <div class="empty-state" data-teacher-record-empty><span class="empty-state-mark">📖</span><h2>指導碁の記録はまだありません</h2><p>管理者が日付・場所・対局内容を登録すると、こちらに表示されます。</p></div>
+    <div class="teacher-records" data-teacher-records hidden><div class="record-date"><span>📅</span><span data-today-label></span><strong data-today-count></strong></div><div data-today-record-list></div></div>
+    <section class="past-teacher-section"><div class="past-teacher-heading"><span>↶</span><div><p class="eyebrow">これまでのご縁</p><h2>過去の指導碁</h2></div></div><div class="empty-state"><span class="empty-state-mark">⌛</span><h2>過去の記録はまだありません</h2><p>指導碁の記録が増えると、日付ごとにこちらへ並びます。</p></div></section>
+    <div class="private-note"><span>🔒</span><span><strong>対局者名は管理者が記入・確認します</strong>先生ご本人だけが閲覧でき、勝敗・順位・ほかの先生との比較は表示しません。</span></div><footer class="portal-footer signature-lockup" aria-label="Be Water, Apollon Team, Codex"><span class="signature-motto">Be Water</span><img src="public/apollon-team-signature-indigo.png" alt="Apollon Team"><span class="signature-codex">Codex</span></footer>
+  </section></div>
+
+  <div class="site-shell view" id="teacher-record-admin" hidden><section class="admin-page">
+    <button class="ui-button ghost back-button" data-go="teacher">← ご縁帳へ戻る</button>
+    <div class="admin-heading teacher-record-heading"><span>✎</span><div><p class="eyebrow">管理者専用</p><h1>指導碁の記録を入力</h1></div></div>
+    <form class="teacher-admin-card" data-teacher-record-form>
+      <p class="meeting-editor-note"><span>🔒</span><span>対局者名は匿名にせず、管理者が確認して記入します。記録は選んだ先生だけに表示されます。</span></p>
+      <label class="login-field"><span>先生のお名前</span><select data-record-teacher required><option value="">花図鑑アプリに登録済みの先生を選ぶ</option></select><small class="two-line-help">仮の先生は作らず、実際に登録された先生だけを表示します。</small></label>
+      <div class="event-editor-grid"><label class="login-field"><span>指導碁の日付</span><input type="date" data-record-date required></label><label class="login-field"><span>場所</span><input type="text" data-record-place required></label></div>
+      <div data-record-rows>
+        <section class="record-session-card" data-record-row><div class="record-session-header"><strong>1局目</strong><button class="record-remove-button" type="button" data-remove-record hidden>この1局を削除</button></div><div class="record-session-grid"><label class="login-field"><span>対局者</span><input type="text" data-record-name required></label><label class="login-field"><span>手合い</span><input type="text" data-record-handicap></label><label class="login-field"><span>勝敗</span><select data-record-result><option value="">選択</option><option>アマ勝ち</option><option>アマ負け</option></select></label><label class="login-field record-session-note"><span>その日の記録</span><input type="text" data-record-note></label></div></section>
+      </div>
+      <button class="record-add-button" type="button" data-add-record>＋ 対局を1局追加</button>
+      <p class="record-entry-count" data-record-entry-count>1局分を入力中・必要なだけ追加できます</p>
+      <p class="record-admin-summary">保存後は、選んだ先生の「今日のご縁」と「過去の指導碁」に反映されます。</p>
+      <button class="ui-button event-form-submit" type="submit">✓ この記録を保存する</button>
+      <p class="meeting-editor-footnote">保存後、選んだ先生のご縁帳へ反映されます</p>
+    </form>
+  </section></div>
+  <script>const scheduleToggle=document.querySelector('[data-schedule-toggle]'),meetingDetails=document.querySelector('[data-meeting-details]');const setScheduleOpen=open=>{meetingDetails.hidden=!open;scheduleToggle.setAttribute('aria-expanded',String(open));scheduleToggle.firstChild.textContent=open?'今月の日程を閉じる ':'今月の日程を確認 '};document.addEventListener('click',e=>{const schedule=e.target.closest('[data-schedule-toggle]');if(schedule){setScheduleOpen(schedule.getAttribute('aria-expanded')!=='true');return}const past=e.target.closest('.past-day-toggle');if(past){const item=past.closest('.past-day'),details=item.querySelector('.past-day-records'),willOpen=!item.classList.contains('open');document.querySelectorAll('.past-day').forEach(day=>{day.classList.remove('open');day.querySelector('.past-day-toggle').setAttribute('aria-expanded','false');day.querySelector('.past-day-records').hidden=true});if(willOpen){item.classList.add('open');past.setAttribute('aria-expanded','true');details.hidden=false}return}const toggle=e.target.closest('.mock-switch');if(toggle){const enabled=toggle.getAttribute('aria-pressed')!=='true';toggle.setAttribute('aria-pressed',String(enabled));toggle.classList.toggle('on',enabled);document.querySelector('.admin-save').disabled=!enabled;document.querySelector('.ready-message').hidden=!enabled;return}const player=e.target.closest('.participant-button');if(player){document.querySelectorAll('.participant-button').forEach(b=>b.classList.remove('selected'));player.classList.add('selected');document.querySelector('[data-player-name]').textContent=player.dataset.player;document.querySelector('[data-player-wins]').textContent=player.dataset.wins;document.querySelector('[data-player-losses]').textContent=player.dataset.losses;document.querySelector('[data-player-rate]').textContent=player.dataset.rate;document.querySelector('[data-player-hint]').hidden=true;document.querySelector('[data-player-result]').hidden=false;return}const b=e.target.closest('[data-go]');if(!b||b.disabled)return;document.querySelectorAll('.view').forEach(v=>v.hidden=true);document.getElementById(b.dataset.go).hidden=false;window.scrollTo(0,0)});const meetingDates=[...document.querySelectorAll('[data-meeting-date]')],meetingTime=document.querySelector('[data-meeting-time]'),meetingPlace=document.querySelector('[data-meeting-place]'),meetingForm=document.querySelector('[data-meeting-form]'),weekdays=['日','月','火','水','木','金','土'];const meetingInfo=value=>{const parts=value.split('-').map(Number),date=new Date(parts[0],parts[1]-1,parts[2]),weekday=weekdays[date.getDay()]||'';return{title:`${parts[1]}月${parts[2]}日（${weekday}）`,weekday,day:String(parts[2]||'')}};const meetingSummary=()=>[meetingTime.value.trim(),meetingPlace.value.trim()].filter(Boolean).join('・');const chosenDates=()=>meetingDates.map(input=>input.value).filter(Boolean).sort();const renderUpcoming=(container,dates)=>{container.innerHTML='';dates.slice(1).forEach(value=>{const info=meetingInfo(value),item=document.createElement('article');item.className='small-meeting-card';item.innerHTML=`<span class="small-date-tile"><strong>${info.day}</strong><small>${info.weekday}</small></span><span><strong>${info.title}</strong><span>${meetingSummary()}</span></span>`;container.append(item)});container.closest('.upcoming-meetings').hidden=dates.length<2};const updateMeetingPreview=()=>{const dates=chosenDates();if(!dates.length)return;const first=meetingInfo(dates[0]);document.querySelector('[data-meeting-preview-title]').textContent=first.title;document.querySelector('[data-meeting-preview-summary]').textContent=meetingSummary();document.querySelector('[data-meeting-preview-weekday]').textContent=first.weekday;document.querySelector('[data-meeting-preview-day]').textContent=first.day;renderUpcoming(document.querySelector('[data-meeting-preview-upcoming]'),dates)};[...meetingDates,meetingTime,meetingPlace].forEach(input=>input.addEventListener('input',updateMeetingPreview));updateMeetingPreview();meetingForm.addEventListener('submit',e=>{e.preventDefault();const dates=chosenDates(),first=meetingInfo(dates[0]);document.querySelector('[data-meeting-title]').textContent=first.title;document.querySelector('[data-meeting-summary]').textContent=meetingSummary();document.querySelector('[data-meeting-weekday]').textContent=first.weekday;document.querySelector('[data-meeting-day]').textContent=first.day;renderUpcoming(document.querySelector('[data-home-upcoming-list]'),dates);setScheduleOpen(false);document.querySelectorAll('.view').forEach(v=>v.hidden=true);document.getElementById('home').hidden=false;window.scrollTo(0,0)});</script>
+  <script src="/public/meeting-schedule.js"></script>
+  <script src="/public/meeting-rollover-ui.js"></script>
+  <script>
+    const eventEditorForm=document.querySelector('[data-event-editor-form]');
+    const eventPosterInput=document.querySelector('[data-event-poster-input]');
+    const eventApplicationForm=document.querySelector('[data-event-application-form]');
+    const mainEventCard=document.querySelector('[data-main-event-card]');
+    const eventEmptyState=document.querySelector('[data-event-empty]');
+    const clearEventsButton=document.querySelector('[data-clear-events]');
+    let eventPosterUrl='';
+
+    document.addEventListener('click',event=>{
+      const shareButton=event.target.closest('[data-event-share]');
+      if(shareButton){
+        const card=shareButton.closest('.event-card');
+        const feedback=card.querySelector('[data-share-feedback]');
+        feedback.hidden=!feedback.hidden;
+        return;
+      }
+      const applicationButton=event.target.closest('[data-event-apply]');
+      if(applicationButton){
+        const name=applicationButton.dataset.eventApply;
+        document.querySelector('[data-application-event-name]').textContent=name;
+        document.querySelector('[data-success-event-name]').textContent=name;
+        eventApplicationForm.hidden=false;
+        document.querySelector('[data-application-success]').hidden=true;
+        eventApplicationForm.reset();
+      }
+      const clearEvents=event.target.closest('[data-clear-events]');
+      if(clearEvents){
+        mainEventCard.hidden=true;
+        mainEventCard.open=false;
+        eventEmptyState.hidden=false;
+        clearEventsButton.disabled=true;
+        eventEditorForm.reset();
+        document.querySelector('[data-event-poster-display]').hidden=true;
+        document.querySelector('[data-event-poster-preview]').hidden=true;
+        if(eventPosterUrl)URL.revokeObjectURL(eventPosterUrl);
+        eventPosterUrl='';
+        return;
+      }
+      const inviteAdmin=event.target.closest('[data-admin-invite]');
+      if(inviteAdmin){
+        const candidate=document.querySelector('[data-admin-candidate]');
+        if(!candidate.value){candidate.focus();return;}
+        document.querySelector('[data-admin-invite-ready]').hidden=false;
+      }
+    });
+
+    eventPosterInput.addEventListener('change',()=>{
+      const file=eventPosterInput.files?.[0];
+      if(!file)return;
+      if(eventPosterUrl)URL.revokeObjectURL(eventPosterUrl);
+      eventPosterUrl=URL.createObjectURL(file);
+      document.querySelector('[data-event-poster-preview-image]').src=eventPosterUrl;
+      document.querySelector('[data-event-poster-preview]').hidden=false;
+    });
+
+    eventEditorForm.addEventListener('submit',event=>{
+      event.preventDefault();
+      const title=document.querySelector('[data-event-title-input]').value.trim();
+      const dateValue=document.querySelector('[data-event-date-input]').value;
+      const time=document.querySelector('[data-event-time-input]').value.trim();
+      const place=document.querySelector('[data-event-place-input]').value.trim();
+      const description=document.querySelector('[data-event-description-input]').value.trim();
+      const parts=dateValue.split('-').map(Number);
+      const weekday=weekdays[new Date(parts[0],parts[1]-1,parts[2]).getDay()];
+      document.querySelector('[data-main-event-title]').textContent=title;
+      document.querySelector('[data-main-event-month]').textContent=`${parts[1]}月`;
+      document.querySelector('[data-main-event-day]').textContent=String(parts[2]);
+      document.querySelector('[data-main-event-weekday]').textContent=weekday;
+      document.querySelector('[data-main-event-meta]').textContent=`${time}　${place}`;
+      document.querySelector('[data-main-event-description]').textContent=description;
+      document.querySelector('[data-event-apply]').dataset.eventApply=title;
+      mainEventCard.hidden=false;
+      eventEmptyState.hidden=true;
+      clearEventsButton.disabled=false;
+      if(eventPosterUrl){
+        document.querySelector('[data-event-poster-image]').src=eventPosterUrl;
+        document.querySelector('[data-event-poster-display]').hidden=false;
+      }
+      document.querySelector('#events .event-card').open=true;
+      document.querySelectorAll('.view').forEach(view=>view.hidden=true);
+      document.getElementById('events').hidden=false;
+      window.scrollTo(0,0);
+    });
+
+    eventApplicationForm.addEventListener('submit',event=>{
+      event.preventDefault();
+      eventApplicationForm.hidden=true;
+      document.querySelector('[data-application-success]').hidden=false;
+      window.scrollTo(0,0);
+    });
+  </script>
+  <script>
+    const teacherNoticeForm=document.querySelector('[data-teacher-notice-form]');
+    const teacherRecordForm=document.querySelector('[data-teacher-record-form]');
+    const noticeOneInput=document.querySelector('[data-notice-line-one-input]');
+    const noticeTwoInput=document.querySelector('[data-notice-line-two-input]');
+    const recordRows=document.querySelector('[data-record-rows]');
+    const recordEntryCount=document.querySelector('[data-record-entry-count]');
+    const noticeDateText=value=>{
+      const parts=value.split('-').map(Number);
+      return `${parts[1]}月${parts[2]}日`;
+    };
+    const updateTeacherNoticePreview=()=>{
+      document.querySelector('[data-notice-preview-one]').textContent=noticeOneInput.value.trim()||'1行目のお知らせ';
+      document.querySelector('[data-notice-preview-two]').textContent=noticeTwoInput.value.trim()||'2行目のお知らせ';
+    };
+    noticeOneInput.addEventListener('input',updateTeacherNoticePreview);
+    noticeTwoInput.addEventListener('input',updateTeacherNoticePreview);
+
+    const updateRecordRowNumbers=()=>{
+      const rows=[...recordRows.querySelectorAll('[data-record-row]')];
+      rows.forEach((row,index)=>{
+        row.querySelector('.record-session-header strong').textContent=`${index+1}局目`;
+        row.querySelector('[data-remove-record]').hidden=rows.length===1;
+      });
+      recordEntryCount.textContent=`${rows.length}局分を入力中・必要なだけ追加できます`;
+    };
+
+    document.addEventListener('click',event=>{
+      if(event.target.closest('[data-add-record]')){
+        const row=recordRows.querySelector('[data-record-row]').cloneNode(true);
+        row.querySelectorAll('input,select').forEach(field=>field.value='');
+        row.querySelector('[data-remove-record]').hidden=false;
+        recordRows.append(row);
+        updateRecordRowNumbers();
+        row.scrollIntoView({behavior:'smooth',block:'center'});
+        return;
+      }
+      const removeButton=event.target.closest('[data-remove-record]');
+      if(removeButton&&recordRows.querySelectorAll('[data-record-row]').length>1){
+        removeButton.closest('[data-record-row]').remove();
+        updateRecordRowNumbers();
+      }
+    });
+
+    teacherNoticeForm.addEventListener('submit',event=>{
+      event.preventDefault();
+      const teacher=document.querySelector('[data-notice-teacher-input]').value;
+      const lineOne=noticeOneInput.value.trim();
+      const lineTwo=noticeTwoInput.value.trim();
+      const start=document.querySelector('[data-notice-start]').value;
+      const end=document.querySelector('[data-notice-end]').value;
+      document.querySelector('[data-notice-teacher]').textContent=`${teacher}より`;
+      document.querySelector('[data-notice-date]').textContent=noticeDateText(start);
+      document.querySelector('[data-notice-line-one]').textContent=lineOne;
+      document.querySelector('[data-notice-line-two]').textContent=lineTwo;
+      document.querySelector('[data-notice-period]').textContent=`掲載期間：${noticeDateText(start)}～${noticeDateText(end)}`;
+      document.querySelector('[data-home-teacher-notice]').textContent=`${teacher}から、皆さんへのひとことが届いています。`;
+      document.querySelector('[data-journal-notice-one]').textContent=lineOne;
+      document.querySelector('[data-journal-notice-two]').textContent=lineTwo;
+      document.querySelector('[data-teacher-notice-empty]').hidden=true;
+      document.querySelector('[data-teacher-notice-board]').hidden=false;
+      document.querySelector('[data-journal-notice-empty]').hidden=true;
+      document.querySelector('[data-journal-notice]').hidden=false;
+      document.querySelector('[data-journal-owner]').textContent=`・${teacher}`;
+      document.querySelectorAll('.view').forEach(view=>view.hidden=true);
+      document.getElementById('teacher-notices').hidden=false;
+      window.scrollTo(0,0);
+    });
+
+    teacherRecordForm.addEventListener('submit',event=>{
+      event.preventDefault();
+      const dateValue=document.querySelector('[data-record-date]').value;
+      const place=document.querySelector('[data-record-place]').value.trim();
+      const teacher=document.querySelector('[data-record-teacher]').value;
+      const dateParts=dateValue.split('-').map(Number);
+      const date=new Date(dateParts[0],dateParts[1]-1,dateParts[2]);
+      const dateLabel=`${dateParts[1]}月${dateParts[2]}日（${weekdays[date.getDay()]}）・${place}`;
+      const rows=[...document.querySelectorAll('[data-record-row]')].map(row=>({
+        name:row.querySelector('[data-record-name]').value.trim(),
+        handicap:row.querySelector('[data-record-handicap]').value.trim(),
+        result:row.querySelector('[data-record-result]').value,
+        note:row.querySelector('[data-record-note]').value.trim()
+      })).filter(record=>record.name);
+      const list=document.querySelector('[data-today-record-list]');
+      list.innerHTML='';
+      rows.forEach(record=>{
+        const article=document.createElement('article');
+        const detail=[record.note,record.handicap].filter(Boolean).join('　');
+        const flower=document.createElement('span');
+        const copy=document.createElement('div');
+        const name=document.createElement('strong');
+        const note=document.createElement('p');
+        const result=document.createElement('span');
+        flower.className='record-flower';
+        flower.textContent='✿';
+        name.textContent=record.name;
+        note.textContent=detail;
+        result.className=`record-result ${record.result==='アマ勝ち'?'win':record.result==='アマ負け'?'loss':'pending'}`;
+        result.textContent=record.result||'未記入';
+        copy.append(name,note);
+        article.append(flower,copy,result);
+        list.append(article);
+      });
+      document.querySelector('[data-today-label]').textContent=dateLabel;
+      document.querySelector('[data-today-count]').textContent=`${rows.length}局`;
+      document.querySelector('[data-journal-owner]').textContent=`・${teacher}`;
+      document.querySelector('[data-teacher-record-empty]').hidden=true;
+      document.querySelector('[data-teacher-records]').hidden=false;
+      document.querySelectorAll('.view').forEach(view=>view.hidden=true);
+      document.getElementById('teacher').hidden=false;
+      window.scrollTo(0,0);
+    });
+  </script>
+
+  <dialog class="admin-confirm-dialog" data-admin-confirm>
+    <form method="dialog" class="admin-confirm-card">
+      <span class="admin-confirm-mark">✓</span>
+      <p class="eyebrow">保存前の確認</p>
+      <h2 data-admin-confirm-title>この内容で保存しますか？</h2>
+      <div class="admin-confirm-body" data-admin-confirm-body></div>
+      <p class="admin-confirm-error" data-admin-confirm-error hidden></p>
+      <div class="admin-confirm-actions"><button class="ui-button outline" value="cancel">戻って直す</button><button class="ui-button" value="confirm" data-admin-confirm-save>この内容で保存</button></div>
+    </form>
+  </dialog>
+
+<script src="/public/portal-content.js"></script>
+<script src="/public/portal-admin.js?v=16-repair"></script>
+<script src="/public/repair-admin.js?v=16-repair"></script>
+<script src="/public/league-handoff.js"></script>
+<link rel="stylesheet" href="/public/gate.css"><script src="/public/gate.js"></script>
+</body></html>

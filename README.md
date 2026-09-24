@@ -15,3 +15,5 @@ node --test-isolation=none --test shrine-core.test.cjs
 ```
 
 このフォルダの `index.html` と画像は過去の静止見本です。動く試作は `working.html` です。
+
+公開ポータル版23で変更したソースの記録は [`portal-site-v23/`](portal-site-v23/README.md) に分けて保存しています。
